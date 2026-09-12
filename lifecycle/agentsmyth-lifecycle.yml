@@ -1,0 +1,58 @@
+generated: '2026-09-12'
+method: searched
+source: https://agentsmyth.com/institutional-trust
+note: >-
+  No changelog, no release notes, no deprecation policy and no status page were found. The only
+  lifecycle-adjacent commitments the provider publishes are the availability and latency targets on
+  its trust page.
+versioning:
+  policy_published: false
+  scheme: unknown
+  note: No versioning policy is published and the MCP endpoint carries no version segment.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No deprecation or sunset policy is published, and no Deprecation or Sunset header was observed
+    on any live response.
+  deprecated_operations: []
+status_page:
+  present: false
+  url: null
+  note: >-
+    status.agentsmyth.com does not resolve. No status, uptime or incident-history page is linked
+    from the site, the llms.txt or the sitemap.
+sla:
+  published: true
+  source: https://agentsmyth.com/institutional-trust
+  commitments:
+  - metric: SaaS availability
+    target: 99.9%
+  - metric: P95 latency, scheduled agent runs
+    target: <2s
+  - metric: P95 latency, deep agent runs
+    target: <10s
+  note: >-
+    Stated as marketing-page targets on the trust page. No SLA document, credit schedule or
+    contractual terms are published; the Terms of Service does not carry a public uptime commitment.
+changelog:
+  present: false
+  url: null
+support:
+  public_channel: false
+  note: >-
+    No support portal, help center, community forum or public support email is published. Access is
+    requested through a Typeform.
+x-evidence:
+  fetched: '2026-09-12'
+  probes:
+  - url: https://agentsmyth.com/institutional-trust
+    http_status: 200
+  - url: https://status.agentsmyth.com/
+    http_status: 0
+    note: DNS does not resolve.
+  - url: https://agentsmyth.com/sitemap.xml
+    http_status: 200
+    note: Ten URLs, none of them a changelog, status or support page.

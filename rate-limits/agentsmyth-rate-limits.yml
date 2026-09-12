@@ -1,0 +1,37 @@
+generated: '2026-09-12'
+method: probed
+source: https://api.agentsmyth.com/mcp
+note: >-
+  No rate limits are published and none were observable anonymously. The API host runs Kong
+  Enterprise, which very commonly enforces rate limiting, but no RateLimit-*, X-RateLimit-* or
+  Retry-After header appeared on any response we could reach without a token - including the 401 on
+  the MCP endpoint and the 200s on the discovery documents. Any limits that exist are therefore
+  invisible to an integrator before they hold credentials, and an agent has no runtime signal to
+  back off on.
+limit_count: 0
+limits: []
+headers:
+  published: []
+  observed: []
+  note: >-
+    Checked response headers on POST /mcp (401), GET /.well-known/oauth-protected-resource/mcp
+    (200), GET /.well-known/oauth-authorization-server (200) and the gateway 404. The only
+    first-party headers present are x-agentsmyth-request-id, x-kong-request-id and
+    x-kong-response-latency.
+exhaustion_status_code: null
+retry_after: false
+docs: null
+docs_note: No public rate-limit documentation exists; there is no developer reference to carry one.
+gateway: kong/3.14.0.14-enterprise-edition
+x-evidence:
+  fetched: '2026-09-12'
+  probes:
+  - url: https://api.agentsmyth.com/mcp
+    http_status: 401
+    rate_limit_headers: none
+  - url: https://api.agentsmyth.com/.well-known/oauth-protected-resource/mcp
+    http_status: 200
+    rate_limit_headers: none
+  - url: https://agentsmyth.com/
+    http_status: 200
+    rate_limit_headers: none

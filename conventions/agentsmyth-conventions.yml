@@ -1,0 +1,96 @@
+generated: '2026-09-12'
+method: probed
+source: >-
+  Live response headers and discovery documents on api.agentsmyth.com; no OpenAPI and no public
+  developer documentation exist to derive from.
+note: >-
+  This file records only what was directly observed on the wire or stated in a fetched discovery
+  document. The callable surface behind https://api.agentsmyth.com/mcp is OAuth-gated and its tool
+  set was not read, so pagination, error envelope, versioning and write semantics are UNKNOWN
+  rather than absent. Nothing below is inferred from the product marketing.
+auth:
+  style: oauth2-bearer
+  header: 'Authorization: Bearer <access_token>'
+  issuer: https://app.auth.agentsmyth.com
+  challenge: >-
+    RFC 9728. An unauthenticated request returns 401 with
+    WWW-Authenticate: Bearer resource_metadata="https://api.agentsmyth.com:443/.well-known/oauth-protected-resource/mcp"
+  detail: authentication/agentsmyth-authentication.yml
+  observed: true
+request_id:
+  supported: true
+  header: x-agentsmyth-request-id
+  also: x-kong-request-id
+  note: >-
+    Observed on live responses from the API gateway, including the anonymous 401. A first-party
+    branded request id is present on every response, which gives an agent a correlation handle to
+    quote in a support conversation.
+  observed: true
+idempotency:
+  coverage: none
+  mechanism: null
+  header: null
+  note: >-
+    No idempotency mechanism is published. No Idempotency-Key header is documented, there is no
+    public reference describing replay protection, and the MCP tool schemas that would reveal any
+    per-tool idempotency parameter are behind OAuth. Recorded as none because an agent integrating
+    today has no readable replay-protection contract to rely on - not because the platform was
+    observed to lack one internally.
+reversibility:
+  grade: unknown
+  reversal_paths: []
+  note: >-
+    Not assessable. The MCP tool set is auth-gated, so whether the agent desk exposes any write or
+    trade-affecting action - and whether such an action can be cancelled, reversed or undone, inside
+    what window - could not be read from any public artifact. No reversal window is asserted here.
+    This is deliberately not recorded as "na": the product is an agent platform for trading
+    workflows, so a write surface is plausible and an honest unknown is the correct value rather
+    than a claim in either direction.
+dry_run_mode:
+  supported: unknown
+  note: No sandbox, test mode or dry-run facility is documented publicly.
+pagination:
+  style: unknown
+  note: No public contract or reference documents a pagination convention.
+versioning:
+  style: unknown
+  note: >-
+    No version segment appears in the MCP endpoint path (/mcp, not /v1/mcp), and /v1 returns 404
+    from the gateway. No versioning policy is published.
+  observed_paths:
+  - path: /mcp
+    status: 401
+  - path: /v1
+    status: 404
+  - path: /v1/mcp
+    status: 404
+error_envelope:
+  style: unknown
+  observed:
+  - condition: unauthenticated request to /mcp
+    status: 401
+    content_type: text/html
+    body: Kong's stock HTML "401 Authorization Required" page, not a JSON or RFC 9457 problem object.
+  - condition: unrouted path on the API host
+    status: 404
+    content_type: application/json
+    body: '{"message":"no Route matched with those values","request_id":"..."}'
+  note: >-
+    Both observed error bodies are gateway defaults rather than an application error contract. The
+    401 in particular returns HTML to a JSON-RPC client, which is a rough edge for an MCP client
+    expecting a JSON-RPC error object.
+rate_limit_signaling:
+  headers_observed: []
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header appeared on any anonymous response. See
+    rate-limits/agentsmyth-rate-limits.yml.
+transport:
+  protocol: MCP over streamable HTTP
+  endpoint: https://api.agentsmyth.com/mcp
+  gateway: kong/3.14.0.14-enterprise-edition
+cross_links:
+  authentication: authentication/agentsmyth-authentication.yml
+  scopes: scopes/agentsmyth-scopes.yml
+  rate_limits: rate-limits/agentsmyth-rate-limits.yml
+  lifecycle: lifecycle/agentsmyth-lifecycle.yml
+  conformance: conformance/agentsmyth-conformance.yml

@@ -1,0 +1,79 @@
+generated: '2026-09-12'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, crates.io, rubygems.org and the GitHub API, plus the provider's own
+  site, llms.txt and sitemap
+note: >-
+  AgentSmyth publishes no client libraries. No first-party SDK, CLI or package exists on any
+  registry, and the company operates no public GitHub organization. Recorded as an explicit negative
+  so a later run does not adopt the look-alike packages listed under rejected[] below. No Packages
+  or SDKs pointer is wired in apis.yml, because there is nothing present to point at.
+package_count: 0
+official_count: 0
+packages: []
+rejected:
+- name: '@jeelvankhede/agentsmyth'
+  registry: npm
+  version: 1.0.1
+  published: '2026-08-08'
+  url: https://www.npmjs.com/package/@jeelvankhede/agentsmyth
+  repository: https://github.com/JeelVankhede/agentsmyth
+  official: false
+  reason: >-
+    Name collision only. This is an unrelated personal project by a third party - "a portable AI
+    engineering lifecycle, seven gated phases, durable on-disk artifacts" - with no connection to
+    AgentSmyth the capital-markets company, no reference to agentsmyth.com, and no first-party
+    ownership signal.
+- name: AdurantLabs2025/Agentsmyth-MCP
+  registry: github
+  version: null
+  published: '2026-03-20'
+  url: https://github.com/AdurantLabs2025/Agentsmyth-MCP
+  official: false
+  reason: >-
+    Third-party repository under an unaffiliated user account created in 2025. One kilobyte, pushed
+    once, homepage points at agentsmyth-mcp.vercel.app rather than any agentsmyth.com host. Not the
+    company's MCP server; the real one is the OAuth-gated endpoint at
+    https://api.agentsmyth.com/mcp recorded in mcp/agentsmyth-mcp.yml.
+- name: github.com/agentsmyth
+  registry: github
+  version: null
+  published: '2018-01-14'
+  url: https://github.com/agentsmyth
+  official: false
+  reason: >-
+    A personal GitHub account holding one repository named "ruby" described as "prototype1a",
+    created in January 2018 - six years before AgentSmyth was founded in 2024. Name squat or
+    coincidence, not the company.
+registries_checked:
+- registry: npm
+  query: agentsmyth
+  first_party_hits: 0
+- registry: pypi
+  query: agentsmyth
+  http_status: 404
+  first_party_hits: 0
+- registry: crates.io
+  query: agentsmyth
+  first_party_hits: 0
+- registry: rubygems
+  query: agentsmyth
+  http_status: 404
+  first_party_hits: 0
+- registry: github
+  query: agentsmyth
+  first_party_hits: 0
+  note: No api-evangelist-verifiable first-party organization exists.
+x-evidence:
+  fetched: '2026-09-12'
+  probes:
+  - url: https://registry.npmjs.org/-/v1/search?text=agentsmyth
+    http_status: 200
+    note: One result, third-party.
+  - url: https://pypi.org/pypi/agentsmyth/json
+    http_status: 404
+  - url: https://rubygems.org/api/v1/gems/agentsmyth.json
+    http_status: 404
+  - url: https://api.github.com/users/agentsmyth
+    http_status: 200
+    note: Personal account predating the company.

@@ -64,5 +64,32 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-AgentSmyth is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+AgentSmyth is a New York based financial-technology company building autonomous AI agents for
+institutional trading and investment research. The platform orchestrates specialized agents —
+Macro, Sentiment, Quant, Options and Earnings, plus an Agent Wealth beta — that compress the
+research-to-trade workflow and return cited, auditable market intelligence to traders, hedge funds,
+banks and asset managers. Founded in 2024 by Pulkit Jaiswal, Daniel McCooey and Robert DiFazio, it
+has raised $11.2M including an $8.7M seed co-led by FinTech Collective and Thomson Reuters, with BNY
+participating through its Ascent program.
+
+- https://agentsmyth.com/
+
+## What this profile found
+
+AgentSmyth publishes no API documentation and no machine-readable contract, but it does run a real,
+reachable agent surface that its own marketing never mentions:
+
+- **A hosted remote MCP server** at `https://api.agentsmyth.com/mcp`, served through a Kong
+  Enterprise gateway. An unauthenticated JSON-RPC `tools/list` returns HTTP 401 with an RFC 9728
+  `WWW-Authenticate` challenge naming its protected-resource metadata document. The tool set is
+  OAuth-gated and was not read.
+- **A complete OAuth 2.1 / OpenID Connect discovery stack** on `app.auth.agentsmyth.com`, with
+  dynamic client registration, the device-authorization grant, `client_credentials`, and PKCE
+  restricted to `S256`.
+- **A served `llms.txt`** listing the site's core and legal pages.
+- **A private Kong Konnect developer portal** at `developer.agentsmyth.com` (`is_public: false`,
+  OIDC required) whose anonymous API catalog returns zero APIs.
+
+No OpenAPI, AsyncAPI, GraphQL SDL, A2A agent card, `security.txt`, status page, changelog, public
+pricing or first-party SDK was found. Those absences are recorded as evidence, not assumed — see
+`well-known/`, `packages/` and `conformance/` for the probe results behind each one.

@@ -1,0 +1,56 @@
+generated: '2026-09-12'
+method: searched
+source: https://agentsmyth.com/legal/fulfillment-policy
+note: >-
+  AgentSmyth publishes no pricing. There is no pricing or plans page - /pricing and /plans both
+  return 404, and neither the sitemap nor the llms.txt names one. Access is a sales motion: the only
+  call to action on the site is a "Get Access" Typeform. This is an enterprise contact-us model
+  aimed at banks, hedge funds and asset managers, so an integrator cannot determine cost, quota or
+  tier limits from anything public.
+plan_count: 0
+plans: []
+pricing_model: contact-sales
+pricing_page: null
+signup: https://9dlk6s8r2pl.typeform.com/to/zLCApa1Y
+currency: null
+free_tier: false
+trial:
+  offered: unknown
+  note: No trial is advertised publicly.
+billing:
+  published: true
+  source: https://agentsmyth.com/legal/fulfillment-policy
+  terms:
+  - subject: renewal
+    statement: >-
+      "All subscriptions automatically renew at the end of each billing period unless cancelled by
+      the customer prior to renewal."
+  - subject: cancellation
+    statement: >-
+      "Upon cancellation, customers will retain access until the end of their current billing cycle,
+      after which access will be terminated, and no further charges will apply."
+  - subject: refunds
+    statement: >-
+      "Due to the digital nature of our services, AgentSmyth does not generally offer refunds."
+      Customers "may request refunds within 14 days of initial purchase" where a technical issue
+      prevents access and is unresolved, or the service differs substantially from its description.
+  - subject: refund processing
+    statement: >-
+      "Approved refunds will be processed to the original payment method within 5-10 business days."
+  refund_window: 14 days from initial purchase
+  note: >-
+    A subscription billing policy exists and is specific, even though no prices are attached to it.
+    The 14-day refund window is a commercial reversal window, not an API operation reversal - see
+    conventions/agentsmyth-conventions.yml for the API reversibility finding.
+x-evidence:
+  fetched: '2026-09-12'
+  probes:
+  - url: https://agentsmyth.com/pricing
+    http_status: 404
+  - url: https://agentsmyth.com/plans
+    http_status: 404
+  - url: https://agentsmyth.com/legal/fulfillment-policy
+    http_status: 200
+  - url: https://agentsmyth.com/sitemap.xml
+    http_status: 200
+    note: Ten URLs; no pricing page among them.

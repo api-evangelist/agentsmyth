@@ -1,0 +1,22 @@
+# Agentsmyth
+
+> Agentsmyth builds AI agents for financial services. The platform provides institutional-grade agent orchestration with enterprise security, compliance, and reliability built in.
+
+## Core Pages
+
+- [Homepage](https://agentsmyth.com): Overview of the Agentsmyth AI agent platform — features, agent types, performance data, client proof, and company highlights.
+- [Technology](https://agentsmyth.com/technology): Deep dive into Agentsmyth's agent architectures, core capabilities, security framework, and upcoming features.
+- [Institutional Trust](https://agentsmyth.com/institutional-trust): Security, privacy, model governance, reliability, and compliance standards for enterprise AI deployment.
+- [The Believers](https://agentsmyth.com/the-believers): Customer success stories and video testimonials from Agentsmyth users.
+- [Meet the Humans](https://agentsmyth.com/meet-the-humans): The team behind Agentsmyth — leadership, backgrounds, and company culture.
+- [Careers](https://agentsmyth.com/careers): Open positions and employment opportunities at Agentsmyth.
+
+## Legal
+
+- [Terms of Service](https://agentsmyth.com/legal/terms-of-service)
+- [Privacy Policy](https://agentsmyth.com/legal/privacy-policy)
+- [Fulfillment Policy](https://agentsmyth.com/legal/fulfillment-policy)
+
+## Contact
+
+- [Newsletter Sign-Up](https://agentsmyth.com/newsletter-sign-up): Subscribe to Agentsmyth updates.

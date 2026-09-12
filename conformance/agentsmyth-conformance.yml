@@ -1,0 +1,112 @@
+generated: '2026-09-12'
+method: probed
+source: >-
+  Live discovery documents on api.agentsmyth.com and app.auth.agentsmyth.com, plus the published
+  trust page at https://agentsmyth.com/institutional-trust
+note: >-
+  Protocol conformance below is asserted from documents actually fetched. The compliance posture is
+  quoted from the provider's own trust page. NO certification is named by the provider anywhere on
+  its public site - no SOC 2, ISO 27001, PCI, HIPAA or FedRAMP claim appears - so none is recorded
+  here.
+conformance:
+- id: oauth2
+  conforms: true
+  evidence: https://app.auth.agentsmyth.com/.well-known/oauth-authorization-server
+  detail: >-
+    OAuth 2.0 Authorization Server Metadata (RFC 8414) served with issuer, authorization_endpoint,
+    token_endpoint, jwks_uri and registration_endpoint.
+- id: oidc
+  conforms: true
+  evidence: https://app.auth.agentsmyth.com/.well-known/openid-configuration
+  detail: >-
+    OpenID Connect Discovery 1.0 document with userinfo_endpoint, RS256 id_token signing and public
+    subject types.
+- id: rfc9728-protected-resource-metadata
+  conforms: true
+  evidence: https://api.agentsmyth.com/.well-known/oauth-protected-resource/mcp
+  detail: >-
+    OAuth 2.0 Protected Resource Metadata. The 401 on the MCP endpoint returns a WWW-Authenticate
+    Bearer challenge carrying resource_metadata pointing at this exact document, which is the full
+    RFC 9728 discovery handshake.
+- id: rfc7636-pkce
+  conforms: true
+  evidence: https://app.auth.agentsmyth.com/.well-known/oauth-authorization-server
+  detail: code_challenge_methods_supported is ["S256"]; the plain method is not offered.
+- id: rfc8628-device-authorization-grant
+  conforms: true
+  evidence: https://app.auth.agentsmyth.com/.well-known/openid-configuration
+  detail: >-
+    device_authorization_endpoint published and urn:ietf:params:oauth:grant-type:device_code listed
+    in grant_types_supported.
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: https://app.auth.agentsmyth.com/.well-known/oauth-authorization-server
+  detail: >-
+    registration_endpoint published and client_id_metadata_document_supported is true.
+- id: mcp
+  conforms: true
+  evidence: https://api.agentsmyth.com/mcp
+  detail: >-
+    Streamable HTTP MCP endpoint. Responds to an unauthenticated JSON-RPC tools/list with the
+    MCP-specified 401 plus RFC 9728 resource_metadata challenge. Tool set not read - auth-gated.
+- id: llmstxt
+  conforms: true
+  evidence: https://agentsmyth.com/llms.txt
+  detail: Served llms.txt in the conventional format, listing core pages, legal pages and contact.
+- id: openapi
+  conforms: false
+  evidence: https://api.agentsmyth.com/openapi.json
+  detail: >-
+    No OpenAPI is published. Probed /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json,
+    /api-docs, /docs and /redoc on the API host (all 404 from the Kong gateway) and on the marketing
+    host. The Kong Konnect developer portal's anonymous API listing is empty.
+- id: asyncapi
+  conforms: false
+  evidence: https://agentsmyth.com/llms.txt
+  detail: No event, streaming or webhook surface is documented anywhere public.
+- id: a2a
+  conforms: false
+  evidence: https://agentsmyth.com/.well-known/agent-card.json
+  detail: >-
+    No A2A agent card on any host. agentsmyth.com, www, api and app.auth all 404; app.agentsmyth.com
+    returns an HTML SPA shell for every /.well-known/* path, which is not a card.
+domain_standard:
+  market: capital markets / institutional trading
+  declared_in_contract: false
+  note: >-
+    No machine-readable contract is published, so no domain-standard signature (FIX, FpML,
+    ISO 20022, OpenFIGI identifiers) could be observed in a spec. The trust page states the product
+    is "MIFID II / MAR-AWARE PACKAGING", which is a prose regulatory claim on a marketing page and
+    NOT a contract-level declaration - it is recorded under compliance below, not scored as a
+    domain-standard conformance.
+compliance:
+  certifications_named: []
+  certifications_note: >-
+    The provider names no certification anywhere public. The trust page offers "ANNUAL INDEPENDENT
+    PENTEST (SUMMARY UNDER NDA)" instead of a published attestation.
+  published_program:
+  - claim: DPA (GDPR/CCPA), residency controls, sub-processor transparency
+    source: https://agentsmyth.com/institutional-trust
+  - claim: MiFID II / MAR-aware packaging
+    source: https://agentsmyth.com/institutional-trust
+  - claim: Annual independent pentest (summary under NDA)
+    source: https://agentsmyth.com/institutional-trust
+  - claim: We don't train on customer data; no-retain/no-train flags passed to model providers
+    source: https://agentsmyth.com/institutional-trust
+  - claim: Per-tenant isolation; TLS in transit, AES-256 at rest; SSO/SAML with SCIM
+    source: https://agentsmyth.com/institutional-trust
+  - claim: Secrets in KMS/HSM; logs to your SIEM; signed images and supply-chain scans
+    source: https://agentsmyth.com/institutional-trust
+  - claim: Audit-ready lineage exports; reviewer queues for low confidence
+    source: https://agentsmyth.com/institutional-trust
+x-evidence:
+  fetched: '2026-09-12'
+  probes:
+  - url: https://agentsmyth.com/institutional-trust
+    http_status: 200
+  - url: https://api.agentsmyth.com/mcp
+    http_status: 401
+  - url: https://api.agentsmyth.com/openapi.json
+    http_status: 404
+  - url: https://developer.agentsmyth.com/api/v3/apis
+    http_status: 200

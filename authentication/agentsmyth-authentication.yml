@@ -1,0 +1,91 @@
+generated: '2026-09-12'
+method: probed
+source: >-
+  https://app.auth.agentsmyth.com/.well-known/openid-configuration and
+  https://api.agentsmyth.com/.well-known/oauth-protected-resource/mcp
+note: >-
+  Derived entirely from the provider's own live discovery documents, not from an OpenAPI - no
+  OpenAPI is published. There is no public human-readable authentication page; the auth model below
+  is what the machine-readable metadata states.
+summary: >-
+  OAuth 2.1 / OpenID Connect. The API host api.agentsmyth.com delegates to a WorkOS AuthKit
+  authorization server at app.auth.agentsmyth.com. Bearer access tokens are presented to the
+  protected resource; unauthenticated calls get an RFC 9728 challenge pointing at the
+  protected-resource metadata.
+schemes:
+- key: oauth2
+  type: oauth2
+  in: header
+  header: Authorization
+  scheme: Bearer
+  issuer: https://app.auth.agentsmyth.com
+  flows:
+    authorizationCode:
+      authorizationUrl: https://app.auth.agentsmyth.com/oauth2/authorize
+      tokenUrl: https://app.auth.agentsmyth.com/oauth2/token
+      refreshUrl: https://app.auth.agentsmyth.com/oauth2/token
+      pkce: S256
+      pkce_required_methods:
+      - S256
+    clientCredentials:
+      tokenUrl: https://app.auth.agentsmyth.com/oauth2/token
+      note: >-
+        Advertised in the OIDC discovery document's grant_types_supported. This is the
+        machine-to-machine path an agent would use without a human in the loop.
+    deviceCode:
+      deviceAuthorizationUrl: https://app.auth.agentsmyth.com/oauth2/device_authorization
+      tokenUrl: https://app.auth.agentsmyth.com/oauth2/token
+      grant: urn:ietf:params:oauth:grant-type:device_code
+  scopes:
+  - openid
+  - profile
+  - email
+  - offline_access
+- key: openIdConnect
+  type: openIdConnect
+  openIdConnectUrl: https://app.auth.agentsmyth.com/.well-known/openid-configuration
+  userinfo_endpoint: https://app.auth.agentsmyth.com/oauth2/userinfo
+  id_token_signing_alg_values_supported:
+  - RS256
+  subject_types_supported:
+  - public
+endpoints:
+  authorization: https://app.auth.agentsmyth.com/oauth2/authorize
+  token: https://app.auth.agentsmyth.com/oauth2/token
+  device_authorization: https://app.auth.agentsmyth.com/oauth2/device_authorization
+  introspection: https://app.auth.agentsmyth.com/oauth2/introspection
+  userinfo: https://app.auth.agentsmyth.com/oauth2/userinfo
+  jwks: https://app.auth.agentsmyth.com/oauth2/jwks
+  registration: https://app.auth.agentsmyth.com/oauth2/register
+client_registration:
+  dynamic: true
+  endpoint: https://app.auth.agentsmyth.com/oauth2/register
+  spec: RFC 7591
+  client_id_metadata_document_supported: true
+  token_endpoint_auth_methods_supported:
+  - none
+  - client_secret_basic
+  - client_secret_post
+  note: >-
+    Open dynamic client registration plus a "none" auth method means a public MCP client can
+    register itself and complete a PKCE authorization-code flow without a pre-provisioned secret.
+api_keys:
+  supported: false
+  note: No API-key scheme is advertised in any discovery document and none is documented publicly.
+protected_resources:
+- resource: https://api.agentsmyth.com/mcp
+  metadata: https://api.agentsmyth.com/.well-known/oauth-protected-resource/mcp
+  authorization_servers:
+  - https://app.auth.agentsmyth.com
+  spec: RFC 9728
+x-evidence:
+  fetched: '2026-09-12'
+  probes:
+  - url: https://app.auth.agentsmyth.com/.well-known/openid-configuration
+    http_status: 200
+  - url: https://app.auth.agentsmyth.com/.well-known/oauth-authorization-server
+    http_status: 200
+  - url: https://api.agentsmyth.com/.well-known/oauth-authorization-server
+    http_status: 200
+  - url: https://api.agentsmyth.com/.well-known/oauth-protected-resource/mcp
+    http_status: 200

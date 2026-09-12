@@ -1,0 +1,68 @@
+generated: '2026-09-12'
+method: probed
+status: published
+source: https://api.agentsmyth.com/mcp
+note: >-
+  A real, first-party, hosted remote MCP server. It is not mentioned anywhere on agentsmyth.com, in
+  the published llms.txt, or in any public documentation - it was found by probing the API host
+  discovered behind the Kong Enterprise gateway. An unauthenticated POST of a tools/list request
+  returns HTTP 401 with an RFC 9728 WWW-Authenticate Bearer challenge naming the protected-resource
+  metadata document, which is the correct modern MCP authorization behaviour.
+deployment:
+  mode: remote
+  endpoint: https://api.agentsmyth.com/mcp
+  auth: oauth
+  verified: probed
+server:
+  name: agentsmyth
+  transport: http
+  url: https://api.agentsmyth.com/mcp
+  gateway: kong/3.14.0.14-enterprise-edition
+  listings: []
+auth:
+  methods:
+  - oauth2
+  oauth2:
+    protected_resource_metadata: https://api.agentsmyth.com/.well-known/oauth-protected-resource/mcp
+    resource: https://api.agentsmyth.com/mcp
+    authorization_server: https://app.auth.agentsmyth.com
+    issuer: https://app.auth.agentsmyth.com
+    scopes_supported:
+    - openid
+    - offline_access
+    - email
+    - profile
+    grant_types:
+    - authorization_code
+    - client_credentials
+    - refresh_token
+    - urn:ietf:params:oauth:grant-type:device_code
+    pkce: S256
+    dynamic_client_registration: https://app.auth.agentsmyth.com/oauth2/register
+    discovery: well-known/agentsmyth-oauth-protected-resource-mcp.json
+tool_count: null
+tools: []
+tools_note: >-
+  The live tool set is auth-gated. POST {"jsonrpc":"2.0","id":1,"method":"tools/list"} to the
+  endpoint returns HTTP 401, so no tool names and no inputSchema were read. The published llms.txt
+  lists marketing pages only and carries no tool list to fall back on, and no public documentation
+  of the MCP surface exists. Enumerating the tools requires an authenticated introspection with a
+  token issued by app.auth.agentsmyth.com. NOTHING about the tool set is asserted here.
+x-evidence:
+  fetched: '2026-09-12'
+  probes:
+  - url: https://api.agentsmyth.com/mcp
+    method: POST
+    body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    http_status: 401
+    www_authenticate: >-
+      Bearer resource_metadata="https://api.agentsmyth.com:443/.well-known/oauth-protected-resource/mcp"
+  - url: https://api.agentsmyth.com/.well-known/oauth-protected-resource/mcp
+    method: GET
+    http_status: 200
+  - url: https://api.agentsmyth.com/mcp/sse
+    method: POST
+    http_status: 401
+  - url: https://api.agentsmyth.com/sse
+    method: POST
+    http_status: 404

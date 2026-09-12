@@ -1,23 +1,124 @@
 aid: agentsmyth
 name: AgentSmyth
-description: 'AgentSmyth is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  AgentSmyth is a New York based financial-technology company building autonomous AI agents for
+  institutional trading and investment research. The platform orchestrates a set of specialized
+  agents - Macro, Sentiment, Quant, Options and Earnings, plus an Agent Wealth beta - that compress
+  the research-to-trade workflow from hours to seconds and return cited, auditable market
+  intelligence to traders, hedge funds, banks and asset managers. Delivery is an enterprise SaaS
+  desk with per-tenant isolation, SSO/SAML with SCIM, model allow/deny governance and optional
+  VPC/on-prem inference. The company runs a Kong Enterprise API gateway at api.agentsmyth.com, a
+  private Kong Konnect developer portal, and an OAuth-protected remote MCP server that exposes the
+  agent desk to MCP clients. Founded in 2024 by Pulkit Jaiswal, Daniel McCooey and Robert DiFazio,
+  it has raised 11.2M dollars including an 8.7M dollar seed co-led by FinTech Collective and
+  Thomson Reuters, with BNY participating through its Ascent program.
+image: https://cdn.sanity.io/images/rpz1t3s7/production/92d6674aeab06f9dfd19cbe31b81923ac1c1a9f7-128x128.png
 url: https://raw.githubusercontent.com/api-evangelist/agentsmyth/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-09-12'
 modified: '2026-09-12'
+position: Producing
 tags:
-- Company
-apis: []
+- Financial Services
+- Capital Markets
+- Artificial Intelligence
+- AI Agents
+- Trading
+- Investment Research
+- Market Intelligence
+- MCP
+- agent-native
+- FinTech
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- name: AgentSmyth MCP Server
+  description: >-
+    OAuth-protected remote Model Context Protocol endpoint served from the AgentSmyth Kong
+    Enterprise gateway. An unauthenticated POST of an MCP tools/list request returns HTTP 401 with
+    an RFC 9728 WWW-Authenticate challenge naming the protected-resource metadata document, which
+    in turn names the WorkOS AuthKit authorization server. The tool set and its input schemas are
+    behind that OAuth wall and were not read.
+  image: https://cdn.sanity.io/images/rpz1t3s7/production/92d6674aeab06f9dfd19cbe31b81923ac1c1a9f7-128x128.png
+  humanURL: https://developer.agentsmyth.com/
+  baseURL: https://api.agentsmyth.com
+  tags:
+  - MCP
+  - AI Agents
+  - Capital Markets
+  properties:
+  - type: MCPServer
+    url: mcp/agentsmyth-mcp.yml
+  - type: Authentication
+    url: authentication/agentsmyth-authentication.yml
+  - type: OAuthScopes
+    url: scopes/agentsmyth-scopes.yml
 common:
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://agentsmyth.com/
+- type: DeveloperPortal
+  url: https://developer.agentsmyth.com/
+- type: SignUp
+  url: https://9dlk6s8r2pl.typeform.com/to/zLCApa1Y
+- type: TermsOfService
+  url: https://agentsmyth.com/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://agentsmyth.com/legal/privacy-policy
+- type: TrustCenter
+  url: https://agentsmyth.com/institutional-trust
+- type: Compliance
+  url: conformance/agentsmyth-conformance.yml
+- type: LLMsTxt
+  url: llms/agentsmyth-llms.txt
+- type: WellKnown
+  url: well-known/agentsmyth-well-known.yml
+- type: MCPServer
+  url: mcp/agentsmyth-mcp.yml
+- type: Authentication
+  url: authentication/agentsmyth-authentication.yml
+- type: OAuthScopes
+  url: scopes/agentsmyth-scopes.yml
+- type: Conformance
+  url: conformance/agentsmyth-conformance.yml
+- type: Conventions
+  url: conventions/agentsmyth-conventions.yml
+- type: Lifecycle
+  url: lifecycle/agentsmyth-lifecycle.yml
+- type: DomainSecurity
+  url: security/agentsmyth-domain-security.yml
+- type: Plans
+  url: plans/agentsmyth-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/agentsmyth-rate-limits.yml
+x-enrichment:
+  date: '2026-09-12'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v3
+x-coverage:
+  state: covered
+  reason: null
+  detail: >-
+    Real first-party artifacts were found and saved - a served llms.txt, four OAuth/OIDC discovery
+    documents and an OAuth-protected remote MCP endpoint - but the machine-readable contract itself
+    is gated: the Kong Konnect developer portal at developer.agentsmyth.com reports is_public false
+    with OIDC auth required, and its anonymous API catalog returns zero APIs.
+  evidence:
+  - url: https://api.agentsmyth.com/mcp
+    status: 401
+  - url: https://api.agentsmyth.com/.well-known/oauth-protected-resource/mcp
+    status: 200
+  - url: https://developer.agentsmyth.com/api/v2/portal
+    status: 200
+  - url: https://developer.agentsmyth.com/api/v3/apis
+    status: 200
+  - url: https://agentsmyth.com/llms.txt
+    status: 200
+  - url: https://api.agentsmyth.com/openapi.json
+    status: 404
+  checked: '2026-09-12'
