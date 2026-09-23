@@ -1,13 +1,12 @@
 generated: '2026-09-12'
 method: probed
 source: live GET of the named /.well-known/ path list on every host this record knows
-note: >-
-  Five real documents were served, all of them OAuth/OIDC discovery, and all of them on the API and
-  auth hosts rather than the marketing domain. agentsmyth.com and www.agentsmyth.com serve a Next.js
-  404 for every probed path. app.agentsmyth.com is a WorkOS AuthKit single-page app that answers
-  HTTP 200 with an HTML shell for EVERY /.well-known/* path including agent-card.json - that is a
-  catch-all, not a document, and it is recorded as a miss. No security.txt, no api-catalog, no
-  ai-plugin.json and no A2A agent card is served anywhere.
+note: Five real documents were served, all of them OAuth/OIDC discovery, and all of them on the API and
+  auth hosts rather than the marketing domain. agentsmyth.com and www.agentsmyth.com serve a Next.js 404
+  for every probed path. app.agentsmyth.com is a WorkOS AuthKit single-page app that answers HTTP 200
+  with an HTML shell for EVERY /.well-known/* path including agent-card.json - that is a catch-all, not
+  a document, and it is recorded as a miss. No security.txt, no api-catalog, no ai-plugin.json and no
+  A2A agent card is served anywhere.
 hosts:
 - host: agentsmyth.com
   documents:
@@ -47,15 +46,13 @@ hosts:
   documents:
   - path: /.well-known/oauth-authorization-server
     status: 200
-    file: well-known/agentsmyth-api-oauth-authorization-server.json
-    note: >-
-      Served as a 302 to the same document on app.auth.agentsmyth.com; the saved body is the
-      followed result.
+    file: agentsmyth-api-oauth-authorization-server.json
+    note: Served as a 302 to the same document on app.auth.agentsmyth.com; the saved body is the followed
+      result.
   - path: /.well-known/oauth-protected-resource/mcp
     status: 200
-    file: well-known/agentsmyth-oauth-protected-resource-mcp.json
-    note: >-
-      RFC 9728 protected-resource metadata for the MCP endpoint. This exact URL is the one named in
+    file: agentsmyth-oauth-protected-resource-mcp.json
+    note: RFC 9728 protected-resource metadata for the MCP endpoint. This exact URL is the one named in
       the WWW-Authenticate header returned by an unauthenticated POST to /mcp.
   - path: /.well-known/oauth-protected-resource
     status: 404
@@ -77,10 +74,10 @@ hosts:
   documents:
   - path: /.well-known/openid-configuration
     status: 200
-    file: well-known/agentsmyth-openid-configuration.json
+    file: agentsmyth-openid-configuration.json
   - path: /.well-known/oauth-authorization-server
     status: 200
-    file: well-known/agentsmyth-auth-oauth-authorization-server.json
+    file: agentsmyth-auth-oauth-authorization-server.json
   - path: /.well-known/security.txt
     status: 404
   - path: /.well-known/agent-card.json
@@ -94,8 +91,7 @@ hosts:
   - path: /.well-known/aauth-resource.json
     status: 404
 - host: app.agentsmyth.com
-  note: >-
-    WorkOS AuthKit SPA catch-all. Every path below returned HTTP 200 with a text/html application
+  note: WorkOS AuthKit SPA catch-all. Every path below returned HTTP 200 with a text/html application
     shell, not a document. Treated as a miss on all paths.
   documents:
   - path: /.well-known/agent-card.json
