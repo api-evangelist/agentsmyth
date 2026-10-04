@@ -21,7 +21,7 @@ created: '2026-09-12'
 modified: '2026-09-12'
 position: Producing
 tags:
-- Financial-Services
+- Financial Services
 - Capital Markets
 - Artificial Intelligence
 - AI Agents
@@ -29,7 +29,7 @@ tags:
 - Investment Research
 - Market Intelligence
 - MCP
-- agent-native
+- Agent-Native
 - Fintech
 tags_raw:
 - Financial Services
@@ -42,6 +42,7 @@ tags_raw:
 - MCP
 - agent-native
 - FinTech
+- Financial-Services
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
