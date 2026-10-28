@@ -64,32 +64,114 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-AgentSmyth is a New York based financial-technology company building autonomous AI agents for
-institutional trading and investment research. The platform orchestrates specialized agents —
-Macro, Sentiment, Quant, Options and Earnings, plus an Agent Wealth beta — that compress the
-research-to-trade workflow and return cited, auditable market intelligence to traders, hedge funds,
-banks and asset managers. Founded in 2024 by Pulkit Jaiswal, Daniel McCooey and Robert DiFazio, it
-has raised $11.2M including an $8.7M seed co-led by FinTech Collective and Thomson Reuters, with BNY
-participating through its Ascent program.
+AgentSmyth is a New York based financial-technology company building autonomous AI agents for institutional trading and investment research. The platform orchestrates a set of specialized agents - Macro, Sentiment, Quant, Options and Earnings, plus an Agent Wealth beta - that compress the research-to-trade workflow from hours to seconds and return cited, auditable market intelligence to traders, hedge funds, banks and asset managers. Delivery is an enterprise SaaS desk with per-tenant isolation, SSO/SAML with SCIM, model allow/deny governance and optional VPC/on-prem inference. The company runs a Kong Enterprise API gateway at api.agentsmyth.com, a private Kong Konnect developer portal, and an OAuth-protected remote MCP server that exposes the agent desk to MCP clients. Founded in 2024 by Pulkit Jaiswal, Daniel McCooey and Robert DiFazio, it has raised 11.2M dollars including an 8.7M dollar seed co-led by FinTech Collective and Thomson Reuters, with BNY participating through its Ascent program.
 
-- https://agentsmyth.com/
+**Areas:** Financial Services · Capital Markets · Artificial Intelligence · AI Agents · Trading · Investment Research · Market Intelligence · MCP · Agent-Native · Fintech
 
-## What this profile found
+## AgentSmyth on APIs.io
 
-AgentSmyth publishes no API documentation and no machine-readable contract, but it does run a real,
-reachable agent surface that its own marketing never mentions:
+Everything profiled for AgentSmyth is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/agentsmyth/](https://apis.io/providers/agentsmyth/)** — or go straight to one of the APIs or properties below.
 
-- **A hosted remote MCP server** at `https://api.agentsmyth.com/mcp`, served through a Kong
-  Enterprise gateway. An unauthenticated JSON-RPC `tools/list` returns HTTP 401 with an RFC 9728
-  `WWW-Authenticate` challenge naming its protected-resource metadata document. The tool set is
-  OAuth-gated and was not read.
-- **A complete OAuth 2.1 / OpenID Connect discovery stack** on `app.auth.agentsmyth.com`, with
-  dynamic client registration, the device-authorization grant, `client_credentials`, and PKCE
-  restricted to `S256`.
-- **A served `llms.txt`** listing the site's core and legal pages.
-- **A private Kong Konnect developer portal** at `developer.agentsmyth.com` (`is_public: false`,
-  OIDC required) whose anonymous API catalog returns zero APIs.
+### APIs (1)
 
-No OpenAPI, AsyncAPI, GraphQL SDL, A2A agent card, `security.txt`, status page, changelog, public
-pricing or first-party SDK was found. Those absences are recorded as evidence, not assumed — see
-`well-known/`, `packages/` and `conformance/` for the probe results behind each one.
+- [AgentSmyth MCP Server](https://apis.io/apis/agentsmyth/agentsmyth-mcp-server/) — OAuth-protected remote Model Context Protocol endpoint served from the AgentSmyth Kong Enterprise gateway. An unauthenticated POST of an MCP tools/list…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [agentsmyth](https://apis.io/servers/agentsmyth/agentsmyth/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Agentsmyth Authentication](https://apis.io/security/agentsmyth/agentsmyth-authentication/)
+- [Agentsmyth Domain Security](https://apis.io/security/agentsmyth/agentsmyth-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Agentsmyth Scopes](https://apis.io/scopes/agentsmyth/agentsmyth-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Agentsmyth Plans Pricing](https://apis.io/plans/agentsmyth/agentsmyth-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Agentsmyth Rate Limits](https://apis.io/rate-limits/agentsmyth/agentsmyth-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://agentsmyth.com/)
+- [Sign up](https://9dlk6s8r2pl.typeform.com/to/zLCApa1Y)
+- [Trust centre](https://agentsmyth.com/institutional-trust)
+- [Terms of service](https://agentsmyth.com/legal/terms-of-service)
+- [Privacy policy](https://agentsmyth.com/legal/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 22.3** — emerging · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 11.9 |
+| Access clarity | 36.8 |
+
+**Agent readiness 24.7** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 39.7** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/agentsmyth/](https://apis.io/providers/agentsmyth/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for AgentSmyth: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/agentsmyth/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
